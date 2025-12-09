@@ -1,0 +1,23 @@
+drain3==0.9.11
+pandas
+numpy
+
+# ML
+scikit-learn
+imbalanced-learn
+xgboost
+lightgbm
+
+# Visualization
+matplotlib
+seaborn
+plotly
+
+# Jupyter
+jupyter
+notebook
+ipywidgets
+
+# Utils
+joblib
+tqdm

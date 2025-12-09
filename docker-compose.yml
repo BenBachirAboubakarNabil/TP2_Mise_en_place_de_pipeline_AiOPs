@@ -1,0 +1,106 @@
+services:
+  drain-parser-hdfs:
+    build: 
+      context: .
+      dockerfile: parser/hdfs/Dockerfile
+    container_name: hdfs_parser
+    volumes:
+      - ./data:/data
+    deploy:
+      resources:
+        limits:
+          memory: 8G        
+        reservations:
+          memory: 4G  
+    command: python parse_hdfs.py
+    restart: "no"
+
+  vectorize-hdfs:
+     build: 
+       context: .
+       dockerfile: parser/hdfs/Dockerfile
+     container_name: hdfs_vectorizer
+     volumes:
+       - ./data:/data
+     deploy:
+       resources:
+         limits:
+           memory: 4G
+         reservations:
+           memory: 2G
+     command: python vectorize_hdfs.py
+     restart: "no"
+
+  analyze-hdfs:
+    build: 
+      context: .
+      dockerfile: parser/hdfs/Dockerfile
+    container_name: hdfs_analyzer
+    volumes:
+      - ./data:/data
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+    command: python analyze_hdfs.py
+    restart: "no"
+
+  jupyter-ml-hdfs:
+    build:
+      context: .
+      dockerfile: notebooks/hdfs/Dockerfile
+    container_name: hdfs_jupyter_ml
+    volumes:
+      - ./data:/data
+      - ./notebooks:/app/notebooks
+    ports:
+      - "8888:8888"
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 4G
+    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --notebook-dir=/app/notebooks
+    restart: "no"
+
+
+### openstack
+  parser-openstack:
+    build:
+      context: .
+      dockerfile: parser/openstack/Dockerfile
+    container_name: openstack_parser
+    volumes:
+      - ./data/openstack:/data/openstack
+      - ./parser:/app/parser
+    command: python parse_openstack.py
+    restart: "no"
+
+  vectorize-openstack:
+    build:
+      context: .
+      dockerfile: parser/openstack/Dockerfile
+    container_name: openstack_vectorizer
+    volumes:
+      - ./data/openstack:/data/openstack
+      - ./parser:/app/parser
+    command: python vectorize_openstack.py
+    restart: "no"
+
+  jupyter-openstack:
+    build:
+      context: .
+      dockerfile: parser/openstack/Dockerfile
+    container_name: openstack_jupyter
+    volumes:
+      - ./data:/data
+      - ./notebooks:/app/notebooks
+    ports:
+      - "8890:8888"
+    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --notebook-dir=/app/notebooks
+    restart: "no"
+
+
