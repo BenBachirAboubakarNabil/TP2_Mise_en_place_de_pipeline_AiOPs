@@ -17,12 +17,12 @@ Les logs bruts ne sont pas inclus dans le repo (fichiers trop gros). Telecharger
  Executer: EDA.ipynb, preprocessing.ipynb, training.ipynb
 
  Openstack:   
-  Parsing: docker-compose up parser-openstack
-  Vectorisation: docker-compose up vectorize-openstack 
-  Training-ML: docker-compose up jupyter-openstack
+  Parsing: docker-compose up parser-openstack  
+  Vectorisation: docker-compose up vectorize-openstack   
+  Training-ML: docker-compose up jupyter-openstack  
 
  Lancer: Ouvrir http://localhost:8890  
- Executer: EDA.ipynb, preprocessing.ipynb, training.ipynb
+ Executer: EDA.ipynb, preprocessing.ipynb, training.ipynb  
 
  Auteurs
 
